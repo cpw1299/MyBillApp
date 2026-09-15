@@ -1,35 +1,13 @@
 {
   "pages": [
-    {
-      "path": "pages/home/index",
-      "style": {
-        "navigationBarTitleText": "做工记录"
-      }
-    },
-    {
-      "path": "pages/records/index",
-      "style": {
-        "navigationBarTitleText": "记录列表"
-      }
-    },
-    {
-      "path": "pages/config/index",
-      "style": {
-        "navigationBarTitleText": "产品配置"
-      }
-    },
-    {
-      "path": "pages/settings/index",
-      "style": {
-        "navigationBarTitleText": "设置"
-      }
-    }
+    { "path": "pages/home/index", "style": { "navigationBarTitleText": "做工记录" } },
+    { "path": "pages/records/index", "style": { "navigationBarTitleText": "记录列表" } },
+    { "path": "pages/batches/index", "style": { "navigationBarTitleText": "批次管理" } },
+    { "path": "pages/config/index", "style": { "navigationBarTitleText": "产品配置" } },
+    { "path": "pages/settings/index", "style": { "navigationBarTitleText": "设置" } }
   ],
   "tabBar": {
-    "color": "#666666",
-    "selectedColor": "#007AFF",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "color": "#666666", "selectedColor": "#007AFF", "backgroundColor": "#ffffff", "borderStyle": "black",
     "list": [
       { "pagePath": "pages/home/index", "text": "做工" },
       { "pagePath": "pages/records/index", "text": "记录" },
@@ -37,10 +15,5 @@
       { "pagePath": "pages/settings/index", "text": "设置" }
     ]
   },
-  "globalStyle": {
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "手工账簿",
-    "navigationBarBackgroundColor": "#000000",
-    "backgroundColor": "#f5f5f5"
-  }
+  "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "手工账簿", "navigationBarBackgroundColor": "#000000", "backgroundColor": "#f5f5f5" }
 }

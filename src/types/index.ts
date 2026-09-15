@@ -1,9 +1,15 @@
+// 产品颜色及其独立单价
+export interface ProductColor {
+  name: string;
+  unitPrice: number;
+}
+
 // 产品类型定义
 export interface Product {
   id: string;
   name: string;
   unitPrice: number;
-  colors: string[];
+  colors: ProductColor[];
   enabled?: boolean;
 }
 
@@ -79,6 +85,7 @@ export type ProductRemoveResult = { ok: true } | { ok: false; message: string };
 
 export interface LegacyColor {
   colorName?: string;
+  name?: string;
   unitPrice?: number;
 }
 

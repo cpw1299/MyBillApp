@@ -4,12 +4,23 @@ export interface Product {
   name: string;
   unitPrice: number;
   colors: string[];
-  enabled?: boolean; // 是否在今日页面显示，默认true
+  enabled?: boolean;
+}
+
+// 工作批次：以老板结账为核心的业务边界
+export interface WorkBatch {
+  id: string;
+  name: string;
+  createdAt: number;
+  completedAt?: number;
+  settledAt?: number;
+  status: 'active' | 'completed' | 'settled';
 }
 
 // 工作记录类型定义
 export interface WorkRecord {
   id: string;
+  batchId: string;
   date: string;
   productId: string;
   productName: string;
@@ -20,7 +31,6 @@ export interface WorkRecord {
   createdAt: number;
 }
 
-// 应用设置类型定义
 export interface AppSettings {
   serverType: 'webdav' | 'http' | 'sftp';
   serverUrl: string;
@@ -31,7 +41,6 @@ export interface AppSettings {
   backupTimePolicy: 'onComplete' | 'daily21' | 'startupCatchup';
 }
 
-// 备份元数据类型定义
 export interface BackupMeta {
   fileName: string;
   localPath: string;
@@ -41,7 +50,6 @@ export interface BackupMeta {
   retryCount?: number;
 }
 
-// 日汇总类型定义
 export interface DailySummary {
   date: string;
   totalFee: number;
@@ -49,33 +57,26 @@ export interface DailySummary {
   itemsByProduct: Record<string, { count: number; fee: number }>;
 }
 
-// 产品草稿类型定义
 export interface ProductDraft {
   name: string;
   unitPrice: number;
 }
 
-// 记录草稿类型定义
 export interface RecordDraft {
+  batchId: string;
   date: string;
   productId: string;
   quantity: number;
+  colorName?: string;
 }
 
-// 操作结果类型定义
 export type ProductMutationResult = { ok: true; product: Product } | { ok: false; message: string };
-
-export type RecordMutationResult =
-  | { ok: true; record: WorkRecord }
-  | { ok: false; message: string };
-
+export type RecordMutationResult = { ok: true; record: WorkRecord } | { ok: false; message: string };
 export type ImportDataResult =
-  | { ok: true; productCount: number; recordCount: number }
+  | { ok: true; productCount: number; recordCount: number; batchCount: number }
   | { ok: false; message: string };
-
 export type ProductRemoveResult = { ok: true } | { ok: false; message: string };
 
-// 遗留数据类型（用于数据迁移）
 export interface LegacyColor {
   colorName?: string;
   unitPrice?: number;
@@ -86,6 +87,7 @@ export interface LegacyProduct {
   name?: string;
   unitPrice?: number;
   colors?: Array<string | LegacyColor>;
+  enabled?: boolean;
 }
 
 export interface LegacyProductWithIdentity extends LegacyProduct {

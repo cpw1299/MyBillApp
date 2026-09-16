@@ -112,6 +112,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useAppStore } from '@/stores/app';
+import { getLocalDateString } from '@/utils/date';
 
 const store = useAppStore();
 const serverTypes = ['webdav', 'http', 'sftp'];
@@ -140,7 +141,7 @@ function saveSettings() {
 
 function exportData() {
   const data = store.exportData();
-  const fileName = `backup_${new Date().toISOString().slice(0, 10)}_${Date.now()}.json`;
+  const fileName = `backup_${getLocalDateString()}_${Date.now()}.json`;
   
   // #ifdef H5
   // H5平台使用浏览器下载

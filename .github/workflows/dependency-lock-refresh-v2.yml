@@ -1,0 +1,44 @@
+name: Refresh dependency lockfile v2
+
+on:
+  push:
+    branches: [dev]
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fix local date usage
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('src/pages/settings/index.vue')
+          text = path.read_text()
+          if "@/utils/date" not in text:
+              text = text.replace("import { useAppStore } from '@/stores/app';", "import { useAppStore } from '@/stores/app';\nimport { getLocalDateString } from '@/utils/date';")
+          text = text.replace("new Date().toISOString().slice(0, 10)", "getLocalDateString()")
+          path.write_text(text)
+          PY
+      - run: npm install --package-lock-only --ignore-scripts --legacy-peer-deps
+      - name: Commit lockfile and date fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json src/pages/settings/index.vue
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+          else
+            git commit -m "chore: 同步依赖锁文件和日期修复"
+            git push origin HEAD:dev
+          fi

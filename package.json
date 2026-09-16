@@ -16,7 +16,6 @@
     "dev:mp-weixin": "uni -p mp-weixin",
     "dev:mp-xhs": "uni -p mp-xhs",
     "dev:quickapp-webview": "uni -p quickapp-webview",
-    "dev:mp-weixin": "uni -p mp-weixin",
     "dev:quickapp-webview-huawei": "uni -p quickapp-webview-huawei",
     "dev:quickapp-webview-union": "uni -p quickapp-webview-union",
     "build:custom": "uni build -p",

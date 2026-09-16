@@ -30,6 +30,10 @@
     "selectedColor": "#007AFF",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
+    "height": "60px",
+    "fontSize": "16px",
+    "iconWidth": "26px",
+    "spacing": "4px",
     "list": [
       { "pagePath": "pages/home/index", "text": "做工" },
       { "pagePath": "pages/records/index", "text": "记录" },

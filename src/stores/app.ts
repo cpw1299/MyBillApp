@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import type { Product, ProductColor, WorkRecord, WorkBatch, AppSettings, BackupMeta, ProductDraft, RecordDraft, ProductMutationResult, RecordMutationResult, ImportDataResult, ProductRemoveResult, LegacyProduct, LegacyRecord } from '@/types';
 import { readVersionedJson, writeVersionedJson, clearAllStorage, STORAGE_KEYS } from '@/utils/storage';
 import { createId, normalizeProductName, isValidUnitPrice, isValidDateString, calculateFee } from '@/utils';
+import { getLocalDateString } from '@/utils/date';
 import defaultProducts from '@/config/default-products.json';
 
 function normalizeProducts(products: LegacyProduct[]): Product[] {
@@ -23,7 +24,7 @@ function normalizeRecords(records: LegacyRecord[]): WorkRecord[] {
     const unitPrice = typeof r.unitPrice === 'number' ? r.unitPrice : 0;
     const fee = typeof r.fee === 'number' ? r.fee : typeof r.amount === 'number' ? r.amount : quantity * unitPrice;
     const createdAt = typeof r.createdAt === 'number' ? r.createdAt : Date.now();
-    return { id: typeof r.id === 'string' && r.id ? r.id : createId(), batchId: typeof r.batchId === 'string' ? r.batchId : '', date: typeof r.date === 'string' && r.date ? r.date : new Date(createdAt).toISOString().slice(0, 10), productId: r.productId as string, productName: r.productName as string, colorName: typeof r.colorName === 'string' ? r.colorName : '', quantity, unitPrice, fee: Number(fee.toFixed(2)), createdAt };
+    return { id: typeof r.id === 'string' && r.id ? r.id : createId(), batchId: typeof r.batchId === 'string' ? r.batchId : '', date: typeof r.date === 'string' && r.date ? r.date : getLocalDateString(new Date(createdAt)), productId: r.productId as string, productName: r.productName as string, colorName: typeof r.colorName === 'string' ? r.colorName : '', quantity, unitPrice, fee: Number(fee.toFixed(2)), createdAt };
   }).filter(r => r.quantity > 0);
 }
 const defaultSettings: AppSettings = { serverType: 'webdav', serverUrl: '', remotePath: 'backups', autoUpload: true, backupTimePolicy: 'onComplete' };
@@ -32,7 +33,7 @@ export const useAppStore = defineStore('app', () => {
   const settings = ref<AppSettings>(defaultSettings), products = ref<Product[]>([]), records = ref<WorkRecord[]>([]), batches = ref<WorkBatch[]>([]), currentBatchId = ref(''), backups = ref<BackupMeta[]>([]), isLoading = ref(false), error = ref<string | null>(null);
   const totalQuantity = computed(() => records.value.reduce((s, r) => s + r.quantity, 0));
   const totalAmount = computed(() => Number(records.value.reduce((s, r) => s + r.fee, 0).toFixed(2)));
-  const todayTotal = computed(() => { const d = new Date().toISOString().slice(0, 10); return Number(records.value.filter(r => r.date === d).reduce((s, r) => s + r.fee, 0).toFixed(2)); });
+  const todayTotal = computed(() => { const d = getLocalDateString(); return Number(records.value.filter(r => r.date === d).reduce((s, r) => s + r.fee, 0).toFixed(2)); });
   const currentBatch = computed(() => batches.value.find(b => b.id === currentBatchId.value));
   const currentBatchRecords = computed(() => currentBatch.value ? records.value.filter(r => r.batchId === currentBatch.value!.id) : []);
   const currentBatchQuantity = computed(() => currentBatchRecords.value.reduce((s, r) => s + r.quantity, 0));

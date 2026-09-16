@@ -16,6 +16,7 @@
     "dev:mp-weixin": "uni -p mp-weixin",
     "dev:mp-xhs": "uni -p mp-xhs",
     "dev:quickapp-webview": "uni -p quickapp-webview",
+    "dev:mp-weixin": "uni -p mp-weixin",
     "dev:quickapp-webview-huawei": "uni -p quickapp-webview-huawei",
     "dev:quickapp-webview-union": "uni -p quickapp-webview-union",
     "build:custom": "uni build -p",
@@ -56,8 +57,8 @@
     "@dcloudio/uni-mp-xhs": "3.0.0-5000420260318001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-5000420260318001",
     "@dcloudio/uni-ui": "^1.5.5",
-    "pinia": "2.2.8",
-    "vue": "^3.5.11",
+    "pinia": "2.1.7",
+    "vue": "^3.4.21",
     "vue-i18n": "^9.1.9"
   },
   "devDependencies": {

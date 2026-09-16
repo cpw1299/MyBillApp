@@ -30,7 +30,7 @@ jobs:
           text = text.replace("new Date().toISOString().slice(0, 10)", "getLocalDateString()")
           path.write_text(text)
           PY
-      - run: rm -f package-lock.json && npm install --package-lock-only --ignore-scripts
+      - run: npm install --package-lock-only --ignore-scripts --legacy-peer-deps
       - name: Commit lockfile and date fix
         run: |
           git config user.name "github-actions[bot]"

@@ -34,12 +34,9 @@
     "build:quickapp-webview": "uni build -p quickapp-webview",
     "build:quickapp-webview-huawei": "uni build -p quickapp-webview-huawei",
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
-    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
-    "lint:check": "eslint . --ext .vue,.js,.ts,.jsx,.tsx",
     "format": "prettier --write \"**/*.{vue,js,ts,json,css,scss,md}\"",
     "format:check": "prettier --check \"**/*.{vue,js,ts,json,css,scss,md}\"",
-    "typecheck": "vue-tsc --noEmit",
-    "prepare": "husky install"
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-5000420260318001",
@@ -70,20 +67,9 @@
     "@dcloudio/uni-stacktracey": "3.0.0-5000420260318001",
     "@dcloudio/vite-plugin-uni": "3.0.0-5000420260318001",
     "@types/node": "^25.5.0",
-    "@typescript-eslint/eslint-plugin": "^8.57.2",
-    "@typescript-eslint/parser": "^8.57.2",
-    "@vue/eslint-config-typescript": "^14.7.0",
-    "@vue/runtime-core": "^3.4.21",
-    "@vue/tsconfig": "^0.9.1",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-vue": "^10.8.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.5.2",
     "prettier": "^3.8.1",
     "typescript": "^6.0.2",
     "vite": "5.2.8",
-    "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.6"
   }
 }
